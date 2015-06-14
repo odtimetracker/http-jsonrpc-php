@@ -1,0 +1,29 @@
+{
+	"name": "odtimetracker/http-jsonrpc-php",
+	"description": "Simple JSON-RPC server for odTimeTracker.",
+	"type": "project",
+	"keywords": ["productivity", "tools"],
+	"homepage": "https://github.com/odtimetracker/http-jsonrpc-php",
+	"license": "MPL-2.0",
+	"authors": [{
+		"name": "Ondřej Doněk",
+		"email": "ondrejd@gmail.com",
+		"homepage": "http://ondrejdonek.blogspot.com/",
+		"role": "Developer"
+	}],
+	"support": {
+		"issues": "https://github.com/odtimetracker/http-jsonrpc-php/issues",
+		"source": "https://github.com/odtimetracker/http-jsonrpc-php"
+	},
+	"autoload": {
+		"psr-0": {
+			"odTimeTracker\\JsonRpc\\": "src/"
+		},
+		"classmap": [
+			"./"
+		]
+	},
+	"require": {
+		"php": ">=5.5"
+	}
+}

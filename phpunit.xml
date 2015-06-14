@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ - Simple JSON-RPC server for odTimeTracker front-end applications.
+ -
+ - @author Ondřej Doněk, <ondrejd@gmail.com>
+ - @license https://www.mozilla.org/MPL/2.0/ Mozilla Public License 2.0
+ -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
+         bootstrap="./test/bootstrap.php"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         verbose="false"
+         stopOnFailure="false"
+         processIsolation="false"
+         backupGlobals="true"
+         syntaxCheck="true"
+         colors="true">
+
+	<testsuites>
+		<testsuite>
+			<directory>./test/src</directory>
+		</testsuite>
+	</testsuites>
+
+	<filter>
+		<whitelist>
+			<directory suffix=".php">./src</directory>
+			<exclude>
+				<file>./index.php</file>
+				<directory>./vendor</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+<!--
+	<logging>
+		<log type="coverage-html" target="./doc/coverage"/>
+		<log type="coverage-clover" target="./doc/coverage/logs/clover.xml"/>
+		<log type="coverage-crap4j" target="./doc/coverage/logs/crap4j.xml"/>
+		<log type="junit" target="./doc/coverage/logs/junit.xml"
+		     logIncompleteSkipped="false"/>
+	</logging>
+
+	<logging>
+		<log highlowerbound="80" lowupperbound="50" highlight="true"
+		     yui="true" charset="UTF-8" target="./doc/coverage"
+		     type="coverage-html"/>
+	</logging>
+-->
+</phpunit>
+

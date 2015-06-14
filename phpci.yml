@@ -11,7 +11,12 @@ setup:
 
 test:
   php_mess_detector:
-    allowed_warnings: 10
+    rules:
+      - "cleancode"
+      - "controversial"
+      - "naming"
+      - "unusedcode"
+    allowed_warnings: 0
   php_code_sniffer:
     standard: "PSR1,PSR2"
     allowed_warnings: 0

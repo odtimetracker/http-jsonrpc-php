@@ -140,6 +140,8 @@ class Response
 			$json['id'] = $this->identifier;
 		}
 
+		$json['result'] = $this->result;
+
 		if ($this->isError() === true) {
 			$json['error'] = array('code' => $this->error->getCode());
 
@@ -150,8 +152,8 @@ class Response
 			if (!empty($this->error->getData())) {
 				$json['error']['data'] = $this->error->getData();
 			}
-		} else {
-			$json['result'] = $this->result;
+
+			unset($json['result']);
 		}
 
 		return json_encode($json);

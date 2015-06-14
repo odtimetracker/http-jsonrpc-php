@@ -2,7 +2,8 @@
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
- * @author Ondřej Doněk, <ondrejd@gmail.com>
+ * @link https://github.com/odtimetracker/http-jsonrpc-php for the canonical source repository
+ * @copyright Copyright (c) 2015 Ondřej Doněk.
  * @license https://www.mozilla.org/MPL/2.0/ Mozilla Public License 2.0
  */
 
@@ -44,7 +45,7 @@ class Server
 	public function handle()
 	{
 		// Connect database
-		$dbh = new \PDO($this->config['db']['dsn']);
+		//$dbh = new \PDO($this->config['db']['dsn']);
 
 		// Get request
 		$request = new Request();

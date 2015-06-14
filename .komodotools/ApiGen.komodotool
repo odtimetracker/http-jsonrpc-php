@@ -6,7 +6,7 @@
   "name": "ApiGen", 
   "operateOnSelection": 0, 
   "value": [
-    "apigen generate -s src -d doc -q"
+    "apigen generate -s src -d doc"
   ], 
   "cwd": "%i", 
   "version": "1.0.12", 

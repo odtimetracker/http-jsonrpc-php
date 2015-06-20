@@ -42,42 +42,89 @@ interface StorageInterface
 	public function getRunningActivity();
 
 	/**
+	 * Return `TRUE` if there is a running activity.
+	 * @return boolean
+	 */
+	public function isRunningActivity();
+
+	/**
 	 * Start new activity.
-	 * @param integer $projectId
-	 * @param string $name
-	 * @param string $description
-	 * @param string $tags
+	 *
+	 * Returns:
+	 * <ul>
+	 * <li>{@see Activity} - successfully started activity</li>
+	 * <li><i>NULL</i> if there is another running activity</li>
+	 * <li><i>false</i> when inserting activity into database failed.</li>
+	 * </ul>
+	 * @param integer $projectId Project's ID.
+	 * @param string $name Activity's name.
+	 * @param string $description Activity's description.
+	 * @param string $tags Activity's tags.
+	 * @return Activity|boolean|null
 	 */
 	public function startActivity($projectId, $name, $description = null, $tags = null);
 
 	/**
 	 * Stop currently running activity (if there is any).
-	 * Return:
-	 * - stopped activity
-	 * - `NULL` if there was no running activity
-	 * - `false` when updating (e.g. stopping) activity in database failed.
-	 * @return Activity|boolean|null 
+	 *
+	 * Returns:
+	 * <ul>
+	 * <li>{@see Activity} - successfully stopped activity</li>
+	 * <li><i>NULL</i> if there was no running activity</li>
+	 * <li><i>false</i> when updating activity in database failed.</li>
+	 * </ul>
+	 * @return Activity|boolean|null
 	 */
 	public function stopActivity();
 
 	/**
 	 * Update activity.
 	 * @param Activity $activity
-	 * @return Activity
+	 * @return Activity|false
 	 */
 	public function updateActivity(Activity $activity);
 
 	/**
 	 * Insert new project.
 	 * @param Project $project
-	 * @return Project
+	 * @return Project|false
 	 */
 	public function insertProject(Project $project);
 
 	/**
 	 * Update project.
 	 * @param Project $project
-	 * @return Project
+	 * @return Project|false
 	 */
 	public function updateProject(Project $project);
+
+	/**
+	 * Select activities.
+	 * @param array $filter
+	 * @return array Array of {@see Activity}.
+	 */
+	public function selectActivity($filter = array());
+
+	/**
+	 * Select projects.
+	 * @param array $filter
+	 * @return array Array of {@see Project}.
+	 */
+	public function selectProject($filter = array());
+
+	/**
+	 * Select activities.
+	 * @param array $filter
+	 * @param array $options
+	 * @return integer Count of removed activities.
+	 */
+	public function removeActivity($filter = array(), $options = array());
+
+	/**
+	 * Remove projects.
+	 * @param array $filter
+	 * @param array $options
+	 * @return integer Count of removed projects.
+	 */
+	public function removeProject($filter = array(), $options = array());
 }

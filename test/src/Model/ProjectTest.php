@@ -111,4 +111,20 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('2015-06-15T06:20:00+0200', $this->emptyProject->setCreated('2015-06-15T06:20:00+0200')->getCreated());
 		$this->assertNull($this->emptyProject->setCreated(null)->getCreated());
 	}
+
+	/**
+	 * @covers odTimeTracker\JsonRpc\Model\Project::exchangeArray
+	 */
+	public function testExchangeArray()
+	{
+		$this->markTestIncomplete('Finish "exchangeArray" test!');
+	}
+
+	/**
+	 * @covers odTimeTracker\JsonRpc\Model\Project::toArray
+	 */
+	public function testToArray()
+	{
+		$this->markTestIncomplete('Finish "toArray" test!');
+	}
 }

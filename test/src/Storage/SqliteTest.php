@@ -175,4 +175,36 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 		$this->assertNotEquals($projectUpdated->getDescription(), $projectInserted->getDescription());
 		$this->assertEquals($projectUpdated->getCreated(), $projectInserted->getCreated());
 	}
+
+	/**
+	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::selectActivity
+	 */
+	public function testSelectActivity()
+	{
+		$this->markTestIncomplete('Finish `selectActivity` test!');
+	}
+
+	/**
+	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::selectProject
+	 */
+	public function testSelectProject()
+	{
+		$this->markTestIncomplete('Finish `selectProject` test!');
+	}
+
+	/**
+	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::removeActivity
+	 */
+	public function testRemoveActivity()
+	{
+		$this->markTestIncomplete('Finish `removeActivity` test!');
+	}
+
+	/**
+	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::removeProject
+	 */
+	public function testRemoveProject()
+	{
+		$this->markTestIncomplete('Finish `removeProject` test!');
+	}
 }

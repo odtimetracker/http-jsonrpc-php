@@ -9,6 +9,8 @@
 
 namespace odTimeTracker\JsonRpc;
 
+use odTimeTracker\JsonRpc\Storage\Sqlite as SqliteStorage;
+
 /**
  * Main class for our JSON-RPC server.
  *
@@ -44,14 +46,15 @@ class Server
 	 */
 	public function handle()
 	{
-		// Connect database
-		//$dbh = new \PDO($this->config['db']['dsn']);
-
 		// Get request
 		$request = new Request();
 
+		// Connect database
+		$dbh = new \PDO($this->config['db']['dsn']);
+		$sqlite = new SqliteStorage($dbh);
+
 		// Initialize controller
-		$controller = new Controller($request);
+		$controller = new Controller($request, $sqlite);
 
 		// Dispatch controller's action
 		$controller->dispatch();

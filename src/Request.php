@@ -17,11 +17,12 @@ namespace odTimeTracker\JsonRpc;
  */
 class Request
 {
+	const DEFAULT_VERSION = '2.0';
 	/**
 	 * String specifying the version of the JSON-RPC protocol. **MUST** be exactly `2.0`.
 	 * @var string $jsonrpc
 	 */
-	protected $jsonrpc = '2.0';
+	protected $jsonrpc = self::DEFAULT_VERSION;
 
 	/**
 	 * String containing the name of the method to be invoked.
@@ -48,6 +49,12 @@ class Request
 	protected $isValid = false;
 
 	/**
+	 * Holds error message when request is not valid.
+	 * @var string
+	 */
+	protected $error;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct()
@@ -72,11 +79,13 @@ class Request
 	 */
 	protected function validate()
 	{
-		if ($this->jsonrpc != '2.0') {
+		if ($this->jsonrpc != self::DEFAULT_VERSION) {
+			$this->error = 'Request is not valid (bad JsonRpc version)!';
 			return false;
 		}
 
 		if (!in_array($this->method, $this->getAvailableMethods())) {
+			$this->error = 'Request is not valid (wrong method name)!';
 			return false;
 		}
 
@@ -112,6 +121,15 @@ class Request
 	public function isValid()
 	{
 		return $this->isValid;
+	}
+
+	/**
+	 * Return error message when request is not valid.
+	 * @return string
+	 */
+	public function getError()
+	{
+		return $this->error;
 	}
 
 	/**

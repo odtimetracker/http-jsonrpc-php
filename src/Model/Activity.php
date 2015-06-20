@@ -14,7 +14,7 @@ namespace odTimeTracker\JsonRpc\Model;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-class Activity
+class Activity extends CommonEntity
 {
 	/**
 	 * Numeric identifier of the activity.
@@ -84,6 +84,23 @@ class Activity
 		$this->tags = $tags;
 		$this->started =  $started;
 		$this->stopped =  $stopped;
+	}
+
+	/**
+	 * Return activity as an array.
+	 * @return array
+	 */
+	public function toArray()
+	{
+		return array(
+			'ActivityId'  => $this->activityId,
+			'ProjectId'   => $this->projectId,
+			'Name'        => $this->name,
+			'Description' => $this->description,
+			'Tags'        => $this->tags,
+			'Started'     => $this->started,
+			'Stopped'     => $this->stopped,
+		);
 	}
 
 	/**

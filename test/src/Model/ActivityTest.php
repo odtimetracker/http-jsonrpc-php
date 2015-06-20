@@ -168,4 +168,20 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('2015-06-15T06:37:00+0200', $this->emptyActivity->setStopped('2015-06-15T06:37:00+0200')->getStopped());
 		$this->assertNull($this->emptyActivity->setStopped(null)->getStopped());
 	}
+
+	/**
+	 * @covers odTimeTracker\JsonRpc\Model\Activity::exchangeArray
+	 */
+	public function testExchangeArray()
+	{
+		$this->markTestIncomplete('Finish "exchangeArray" test!');
+	}
+
+	/**
+	 * @covers odTimeTracker\JsonRpc\Model\Activity::toArray
+	 */
+	public function testToArray()
+	{
+		$this->markTestIncomplete('Finish "toArray" test!');
+	}
 }

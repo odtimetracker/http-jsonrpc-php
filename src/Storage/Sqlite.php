@@ -20,6 +20,11 @@ use odTimeTracker\JsonRpc\Model\Project;
 class Sqlite implements StorageInterface
 {
 	/**
+	 * @const string Default date time format (RFC3339).
+	 */
+	const RFC3339 = 'Y-m-d\TH:i:sO';
+
+	/**
 	 * Holds instance of `PDO` object.
 	 * @var \PDO $pdo
 	 */
@@ -94,7 +99,7 @@ EOT;
 		$sql = <<<EOT
 SELECT *
 FROM `Activities`
-WHERE `Created` IS NULL ;
+WHERE `Stopped` IS NULL OR `Stopped` = '' ;
 EOT;
 		$stmt = $this->pdo->query($sql, \PDO::FETCH_ASSOC);
 		if ($stmt === false) {
@@ -102,32 +107,45 @@ EOT;
 		}
 
 		$data = $stmt->fetch();
+		if ($data === false) {
+			return null;
+		}
 
-		return new Activity(
-			$data['ActivityId'],
-			$data['ProjectId'],
-			$data['Name'],
-			$data['Description'],
-			$data['Tags'],
-			$data['Started'],
-			$data['Stopped']
-		);
+		$activity = new Activity();
+		$activity->exchangeArray($data);
+
+		return $activity;
 	}
 
 	/**
-	 * Start new activity. If other activity is already running return `FALSE`
-	 * and no new activity is inserted into the database.
-	 * @param integer $projectId
-	 * @param string $name
-	 * @param string $description
-	 * @param string $tags
-	 * @return Activity|boolean
+	 * Return `TRUE` if there is a running activity.
+	 * @return boolean
+	 */
+	public function isRunningActivity()
+	{
+		 $runningActivity = $this->getRunningActivity();
+		 return ($runningActivity instanceof Activity);
+	}
+
+	/**
+	 * Start new activity.
+	 *
+	 * Returns:
+	 * <ul>
+	 * <li>{@see Activity} - successfully started activity</li>
+	 * <li><i>NULL</i> if there is another running activity</li>
+	 * <li><i>false</i> when inserting activity into database failed.</li>
+	 * </ul>
+	 * @param integer $projectId Project's ID.
+	 * @param string $name Activity's name.
+	 * @param string $description Activity's description.
+	 * @param string $tags Activity's tags.
+	 * @return Activity|boolean|null
 	 */
 	public function startActivity($projectId, $name, $description = null, $tags = null)
 	{
-		$activity = $this->getRunningActivity();
-		if ($activity instanceof Activity) {
-			return false;
+		if ($this->isRunningActivity()) {
+			return null;
 		}
 
 		$sql = <<<EOL
@@ -138,7 +156,7 @@ EOL;
 		$res = $stmt->execute(array($projectId, $name, $description, $tags));
 
 		if ($res === false) {
-			// TODO Throw error?
+			return false;
 		} else {
 			$activity->setActivityId($this->pdo->lastInsertId());
 		}
@@ -149,22 +167,22 @@ EOL;
 	/**
 	 * Stop currently running activity (if there is any).
 	 *
-	 * Return:
+	 * Returns:
 	 * <ul>
-	 * <li>stopped activity</li>
-	 * <li>`NULL` if there was no running activity</li>
-	 * <li>`false` when updating (e.g. stopping) activity in database failed.</li>
+	 * <li>{@see Activity} - successfully stopped activity</li>
+	 * <li><i>NULL</i> if there was no running activity</li>
+	 * <li><i>false</i> when updating activity in database failed.</li>
 	 * </ul>
 	 * @return Activity|boolean|null
 	 */
 	public function stopActivity()
 	{
 		$activity = $this->getRunningActivity();
-		if (is_null($activity)) {
+		if (!($activity instanceof Activity)) {
 			return null;
 		}
 
-		$activity->setStopped(date('Y-m-d\TH:i:sO'));
+		$activity->setStopped(date(self::RFC3339));
 
 		return $this->updateActivity($activity);
 	}
@@ -172,7 +190,7 @@ EOL;
 	/**
 	 * Update activity.
 	 * @param Activity $activity
-	 * @return Activity
+	 * @return Activity|false
 	 */
 	public function updateActivity(Activity $activity)
 	{
@@ -199,7 +217,7 @@ EOL;
 		));
 
 		if ($res === false) {
-			// TODO Throw error?
+			return false;
 		}
 
 		return $activity;
@@ -208,12 +226,12 @@ EOL;
 	/**
 	 * Insert new project.
 	 * @param Project $project
-	 * @return Project
+	 * @return Project|false
 	 */
 	public function insertProject(Project $project)
 	{
 		if (empty($project->getCreated) || is_null($project->getCreated())) {
-			$project->setCreated(date('Y-m-d\TH:i:sO'));
+			$project->setCreated(date(self::RFC3339));
 		}
 
 		$sql = <<<EOL
@@ -228,7 +246,7 @@ EOL;
 		));
 
 		if ($res === false) {
-			// TODO Throw error?
+			return false;
 		} else {
 			$project->setProjectId($this->pdo->lastInsertId());
 		}
@@ -239,7 +257,7 @@ EOL;
 	/**
 	 * Update project. Valuee of column `Created` will **NOT** be updated.
 	 * @param Project $project
-	 * @return Project
+	 * @return Project|false
 	 */
 	public function updateProject(Project $project)
 	{
@@ -258,9 +276,55 @@ EOL;
 		));
 
 		if ($res === false) {
-			// TODO Throw error?
+			return false;
 		}
 
 		return $project;
+	}
+
+	/**
+	 * Select activities.
+	 * @param array $filter
+	 * @return array Array of {@see Activity}.
+	 */
+	public function selectActivity($filter = array())
+	{
+		// TODO Finish this!
+		return array();
+	}
+
+	/**
+	 * Select projects.
+	 * @param array $filter
+	 * @return array Array of {@see Project}.
+	 */
+	public function selectProject($filter = array())
+	{
+		// TODO Finish this!
+		return array();
+	}
+
+	/**
+	 * Select activities.
+	 * @param array $filter
+	 * @param array $options
+	 * @return integer Count of removed activities.
+	 */
+	public function removeActivity($filter = array(), $options = array())
+	{
+		// TODO Finish this!
+		return 0;
+	}
+
+	/**
+	 * Remove projects.
+	 * @param array $filter
+	 * @param array $options
+	 * @return integer Count of removed projects.
+	 */
+	public function removeProject($filter = array(), $options = array())
+	{
+		// TODO Finish this!
+		return 0;
 	}
 }

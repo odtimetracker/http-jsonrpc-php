@@ -29,7 +29,7 @@ __Note__: Below are details about some parameters.
 
 #### Method `Start`
 
-```
+```json
 {
 	"ProjectId": 5,
 	"Name": "Some activity",
@@ -40,7 +40,7 @@ __Note__: Below are details about some parameters.
 
 Or:
 
-```
+```json
 {
 	"Project": "Test project",
 	"Name": "Some activity",
@@ -55,7 +55,7 @@ Where `Name` and either `Project` or `ProjectId` are required and `Description` 
 
 For inserting an activity use:
 
-```
+```json
 {
 	"ProjectId": 5,
 	"Name": "Some activity",
@@ -68,7 +68,7 @@ For inserting an activity use:
 
 For updating activity must be also `ActivityId` included:
 
-```
+```json
 {
 	"ActivityId": 41,
 	"ProjectId": 5,
@@ -84,7 +84,7 @@ For updating activity must be also `ActivityId` included:
 
 For inserting a project use:
 
-```
+```json
 {
 	"Name": "Test project",
 	"Description": "Test project description"
@@ -93,7 +93,7 @@ For inserting a project use:
 
 For updating project must be also `ProjectId` included:
 
-```
+```json
 {
 	"ProjectId": 5,
 	"Name": "Test project",

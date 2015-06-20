@@ -157,9 +157,9 @@ EOL;
 
 		if ($res === false) {
 			return false;
-		} else {
-			$activity->setActivityId($this->pdo->lastInsertId());
 		}
+
+		$activity->setActivityId($this->pdo->lastInsertId());
 
 		return $activity;
 	}
@@ -247,9 +247,9 @@ EOL;
 
 		if ($res === false) {
 			return false;
-		} else {
-			$project->setProjectId($this->pdo->lastInsertId());
 		}
+
+		$project->setProjectId($this->pdo->lastInsertId());
 
 		return $project;
 	}

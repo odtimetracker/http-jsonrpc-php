@@ -99,16 +99,17 @@ class Controller
 	{
 		$runningActivity = $this->storage->getRunningActivity();
 
-		if (($runningActivity instanceof Activity)) {
-			$this->response->setResult(array(
-				'message' => 'There is a running activity.',
-				'activity' => $runningActivity->toArray(),
-			));
-		} else {
+		if (!($runningActivity instanceof Activity)) {
 			$this->response->setResult(array(
 				'message' => 'There is no running activity.',
 			));
+			return;
 		}
+
+		$this->response->setResult(array(
+			'message' => 'There is a running activity.',
+			'activity' => $runningActivity->toArray(),
+		));
 	}
 
 	/**
@@ -148,8 +149,7 @@ class Controller
 			$error->setMessage('Starting activity failed!');
 			$this->response->setError($error);
 			return;
-		}
-		else if (is_null($activity)) {
+		} elseif (is_null($activity)) {
 			$this->response->setResult(array(
 				'message' => 'Activity was not started - another activity is running.'
 			));
@@ -175,8 +175,7 @@ class Controller
 			$error->setMessage('Stopping activity failed!');
 			$this->response->setError($error);
 			return;
-		}
-		else if (is_null($activity)) {
+		} elseif (is_null($activity)) {
 			$this->response->setResult(array(
 				'message' => 'Couldn\'t stop activity - no activity is running.'
 			));

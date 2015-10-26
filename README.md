@@ -105,9 +105,3 @@ For updating project must be also `ProjectId` included:
 
 ...
 
-## Usage
-
-If you are interested in creating clients for this server:
-
-- __PHP__: see included [PHPUnit](https://phpunit.de/) tests.
-- __JavaScript__: ...

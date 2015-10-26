@@ -1,0 +1,11 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Simple JSON-RPC server for odTimeTracker front-end applications.
+${licensePrefix}
+${licensePrefix}@link https://github.com/odtimetracker/http-jsonrpc-php for the canonical source repository
+${licensePrefix}@copyright Copyright (c) 2015 Ondřej Doněk.
+${licensePrefix}@license https://www.mozilla.org/MPL/2.0/ Mozilla Public License 2.0
+<#if licenseLast??>
+${licenseLast}
+</#if>

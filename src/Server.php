@@ -50,7 +50,7 @@ class Server
 		$request = new Request();
 
 		// Connect database
-		$dbh = new \PDO($this->config['db']['dsn']);
+		$dbh = new \PDO($this->config['db.dsn']);
 		$sqlite = new SqliteStorage($dbh);
 
 		// Initialize controller

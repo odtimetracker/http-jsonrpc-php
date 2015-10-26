@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -17,13 +18,12 @@ use odTimeTracker\JsonRpc\Model\Project;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-class SqliteTest extends \PHPUnit_Framework_TestCase
-{
+class SqliteTest extends \PHPUnit_Framework_TestCase {
+
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::getSchemaVersion
 	 */
-	public function testGetSchemaVersion()
-	{
+	public function testGetSchemaVersion() {
 		$pdo = new \PDO('sqlite::memory:');
 		$storage = new Sqlite($pdo);
 
@@ -33,8 +33,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::createSchema
 	 */
-	public function testCreateSchema()
-	{
+	public function testCreateSchema() {
 		$pdo = new \PDO('sqlite::memory:');
 		$storage = new Sqlite($pdo);
 
@@ -45,16 +44,14 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::emptyStorage
 	 */
-	public function testEmptyStorage()
-	{
+	public function testEmptyStorage() {
 		$this->markTestIncomplete('Finish `emptyStorage` test!');
 	}
 
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::getRunningActivity
 	 */
-	public function testGetRunningActivity()
-	{
+	public function testGetRunningActivity() {
 		$pdo = new \PDO('sqlite::memory:');
 		$storage = new Sqlite($pdo);
 		$storage->createSchema();
@@ -65,17 +62,13 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::startActivity
 	 */
-	public function testStartActivity()
-	{
+	public function testStartActivity() {
 		$pdo = new \PDO('sqlite::memory:');
 		$storage = new Sqlite($pdo);
 		$storage->createSchema();
 
 		$activity = $storage->startActivity(
-			1,
-			'Test activity',
-			'Some description...',
-			'tag1,tag2,tag3'
+				1, 'Test activity', 'Some description...', 'tag1,tag2,tag3'
 		);
 		$this->assertInstanceOf('\odTimeTracker\JsonRpc\Model\Activity', $activity);
 		$this->assertGreaterThan(0, $activity->getActivityId());
@@ -100,8 +93,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::stopActivity
 	 */
-	public function testStopActivity()
-	{
+	public function testStopActivity() {
 		$pdo = new \PDO('sqlite::memory:');
 		$storage = new Sqlite($pdo);
 		$storage->createSchema();
@@ -109,10 +101,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 		$this->assertNull($storage->stopActivity());
 
 		$activityOriginal = $storage->startActivity(
-			1,
-			'Test activity',
-			'Some description...',
-			'tag1,tag2,tag3'
+				1, 'Test activity', 'Some description...', 'tag1,tag2,tag3'
 		);
 		$activityStopped = $storage->stopActivity();
 		$this->assertInstanceOf('\odTimeTracker\JsonRpc\Model\Activity', $activityStopped);
@@ -128,16 +117,14 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::updateActivity
 	 */
-	public function testUpdateActivity()
-	{
+	public function testUpdateActivity() {
 		$this->markTestIncomplete('Finish `updateActivity` test!');
 	}
 
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::insertProject
 	 */
-	public function testInsertProject()
-	{
+	public function testInsertProject() {
 		$pdo = new \PDO('sqlite::memory:');
 		$storage = new Sqlite($pdo);
 		$storage->createSchema();
@@ -155,8 +142,7 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::updateProject
 	 */
-	public function testUpdateProject()
-	{
+	public function testUpdateProject() {
 		$pdo = new \PDO('sqlite::memory:');
 		$storage = new Sqlite($pdo);
 		$storage->createSchema();
@@ -179,32 +165,29 @@ class SqliteTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::selectActivity
 	 */
-	public function testSelectActivity()
-	{
+	public function testSelectActivity() {
 		$this->markTestIncomplete('Finish `selectActivity` test!');
 	}
 
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::selectProject
 	 */
-	public function testSelectProject()
-	{
+	public function testSelectProject() {
 		$this->markTestIncomplete('Finish `selectProject` test!');
 	}
 
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::removeActivity
 	 */
-	public function testRemoveActivity()
-	{
+	public function testRemoveActivity() {
 		$this->markTestIncomplete('Finish `removeActivity` test!');
 	}
 
 	/**
 	 * @covers odTimeTracker\JsonRpc\Storage\Sqlite::removeProject
 	 */
-	public function testRemoveProject()
-	{
+	public function testRemoveProject() {
 		$this->markTestIncomplete('Finish `removeProject` test!');
 	}
+
 }

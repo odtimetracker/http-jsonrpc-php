@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -18,8 +19,8 @@ use odTimeTracker\JsonRpc\Model\Activity;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-class Controller
-{
+class Controller {
+
 	/**
 	 * Holds used request.
 	 * @var Request $request
@@ -42,11 +43,10 @@ class Controller
 	 * Constructor.
 	 * @param Request $request
 	 */
-	public function __construct(Request $request, StorageInterface $storage)
-	{
-		$this->request  = $request;
+	public function __construct(Request $request, StorageInterface $storage) {
+		$this->request = $request;
 		$this->response = new Response();
-		$this->storage  = $storage;
+		$this->storage = $storage;
 
 		$this->response->setIdentifier($this->request->getIdentifier());
 	}
@@ -55,8 +55,7 @@ class Controller
 	 * Retrieve used request.
 	 * @return Request
 	 */
-	public function getRequest()
-	{
+	public function getRequest() {
 		return $this->request;
 	}
 
@@ -64,16 +63,14 @@ class Controller
 	 * Retrieve server response.
 	 * @return Response
 	 */
-	public function getResponse()
-	{
+	public function getResponse() {
 		return $this->response;
 	}
 
 	/**
 	 * Dispatch action.
 	 */
-	public function dispatch()
-	{
+	public function dispatch() {
 		if (!$this->request->isValid()) {
 			$error = new ResponseError();
 			$error->setCode(ResponseError::INVALID_REQUEST);
@@ -83,7 +80,7 @@ class Controller
 		}
 
 		try {
-			$actionName = 'action' . $this->request->getMethod() ;
+			$actionName = 'action' . $this->request->getMethod();
 			$this->{$actionName}();
 		} catch (\Exception $e) {
 			$error = new ResponseError();
@@ -95,8 +92,7 @@ class Controller
 	/**
 	 * Invoke "info" action.
 	 */
-	public function actionInfo()
-	{
+	public function actionInfo() {
 		$runningActivity = $this->storage->getRunningActivity();
 
 		if (!($runningActivity instanceof Activity)) {
@@ -117,16 +113,14 @@ class Controller
 	 *
 	 * Note: This action is just an alias for **Info** action.
 	 */
-	public function actionStatus()
-	{
+	public function actionStatus() {
 		$this->actionInfo();
 	}
 
 	/**
 	 * Invoke "start" action.
 	 */
-	public function actionStart()
-	{
+	public function actionStart() {
 		$params = $this->request->getParams();
 		$pid = (array_key_exists('ProjectId', $params)) ? (int) $params['ProjectId'] : 0;
 		$name = (array_key_exists('Name', $params)) ? $params['Name'] : '';
@@ -165,8 +159,7 @@ class Controller
 	/**
 	 * Invoke "stop" action.
 	 */
-	public function actionStop()
-	{
+	public function actionStop() {
 		$activity = $this->storage->stopActivity();
 
 		if ($activity === false) {
@@ -187,4 +180,18 @@ class Controller
 			'activity' => $activity->toArray(),
 		));
 	}
+
+	/**
+	 * Invoke "selectProject" action.
+	 * @return void
+	 */
+	public function actionProjectSelect() {
+		$filter = $this->getRequest()->getParams();
+		$project = $this->storage->selectProject($filter);
+
+		$this->response->setResult(array(
+			'project' => $project
+		));
+	}
+
 }

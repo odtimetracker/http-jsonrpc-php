@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -14,8 +15,8 @@ namespace odTimeTracker\JsonRpc\Model;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-class Activity extends CommonEntity
-{
+class Activity extends CommonEntity {
+
 	/**
 	 * Numeric identifier of the activity.
 	 * @var integer $activityId
@@ -63,43 +64,37 @@ class Activity extends CommonEntity
 	 * @param integer $activityId (Optional.)
 	 * @param integer $projectId (Optional.)
 	 * @param string $name (Optional.)
-	 * @param string $tags (Optional.)
 	 * @param string $description (Optional.)
+	 * @param string $tags (Optional.)
 	 * @param string $started (Optional.)
 	 * @param string $stopped (Optional.)
 	 */
 	public function __construct(
-		$activityId = null,
-		$projectId = null,
-		$name = null,
-		$description = null,
-		$tags = null,
-		$started = null,
-		$stopped = null
+		$activityId = null, $projectId = null, $name = null, $description = null,
+		$tags = null, $started = null, $stopped = null
 	) {
 		$this->activityId = $activityId;
 		$this->projectId = $projectId;
 		$this->name = $name;
 		$this->description = $description;
 		$this->tags = $tags;
-		$this->started =  $started;
-		$this->stopped =  $stopped;
+		$this->started = $started;
+		$this->stopped = $stopped;
 	}
 
 	/**
 	 * Return activity as an array.
 	 * @return array
 	 */
-	public function toArray()
-	{
+	public function toArray() {
 		return array(
-			'ActivityId'  => $this->activityId,
-			'ProjectId'   => $this->projectId,
-			'Name'        => $this->name,
+			'ActivityId' => $this->activityId,
+			'ProjectId' => $this->projectId,
+			'Name' => $this->name,
 			'Description' => $this->description,
-			'Tags'        => $this->tags,
-			'Started'     => $this->started,
-			'Stopped'     => $this->stopped,
+			'Tags' => $this->tags,
+			'Started' => $this->started,
+			'Stopped' => $this->stopped,
 		);
 	}
 
@@ -107,8 +102,7 @@ class Activity extends CommonEntity
 	 * Return activity's duration in miliseconds.
 	 * @return integer
 	 */
-	public function getDuration()
-	{
+	public function getDuration() {
 		return 0;
 	}
 
@@ -116,8 +110,7 @@ class Activity extends CommonEntity
 	 * Return activity's duration as a formatted string.
 	 * @return string
 	 */
-	public function getDurationFormatted()
-	{
+	public function getDurationFormatted() {
 		return '0 s';
 	}
 
@@ -125,8 +118,7 @@ class Activity extends CommonEntity
 	 * Retrieve identifier of the activity.
 	 * @return integer
 	 */
-	public function getActivityId()
-	{
+	public function getActivityId() {
 		return $this->activityId;
 	}
 
@@ -135,8 +127,7 @@ class Activity extends CommonEntity
 	 * @param integer $activityId
 	 * @return Activity
 	 */
-	public function setActivityId($activityId)
-	{
+	public function setActivityId($activityId) {
 		$this->activityId = $activityId;
 		return $this;
 	}
@@ -145,8 +136,7 @@ class Activity extends CommonEntity
 	 * Retrieve identifier of the attached project.
 	 * @return integer
 	 */
-	public function getProjectId()
-	{
+	public function getProjectId() {
 		return $this->projectId;
 	}
 
@@ -155,8 +145,7 @@ class Activity extends CommonEntity
 	 * @param integer $projectId
 	 * @return Activity
 	 */
-	public function setProjectId($projectId)
-	{
+	public function setProjectId($projectId) {
 		$this->projectId = $projectId;
 		return $this;
 	}
@@ -165,8 +154,7 @@ class Activity extends CommonEntity
 	 * Retrieve name of the activity.
 	 * @return string
 	 */
-	public function getName()
-	{
+	public function getName() {
 		return $this->name;
 	}
 
@@ -175,8 +163,7 @@ class Activity extends CommonEntity
 	 * @param string $name
 	 * @return Activity
 	 */
-	public function setName($name)
-	{
+	public function setName($name) {
 		$this->name = $name;
 		return $this;
 	}
@@ -185,8 +172,7 @@ class Activity extends CommonEntity
 	 * Retrieve description of the activity.
 	 * @return string
 	 */
-	public function getDescription()
-	{
+	public function getDescription() {
 		return $this->description;
 	}
 
@@ -195,8 +181,7 @@ class Activity extends CommonEntity
 	 * @param string $description
 	 * @return Activity
 	 */
-	public function setDescription($description)
-	{
+	public function setDescription($description) {
 		$this->description = $description;
 		return $this;
 	}
@@ -205,8 +190,7 @@ class Activity extends CommonEntity
 	 * Retrieve comma-separated tags attached to the activity.
 	 * @return string
 	 */
-	public function getTags()
-	{
+	public function getTags() {
 		return $this->tags;
 	}
 
@@ -215,8 +199,7 @@ class Activity extends CommonEntity
 	 * @param string $tags
 	 * @return Activity
 	 */
-	public function setTags($tags)
-	{
+	public function setTags($tags) {
 		$this->tags = $tags;
 		return $this;
 	}
@@ -225,8 +208,7 @@ class Activity extends CommonEntity
 	 * Retrieve datetime when was activity started (formatted by RFC3339).
 	 * @return string
 	 */
-	public function getStarted()
-	{
+	public function getStarted() {
 		return $this->started;
 	}
 
@@ -235,8 +217,7 @@ class Activity extends CommonEntity
 	 * @param string $started
 	 * @return Activity
 	 */
-	public function setStarted($started)
-	{
+	public function setStarted($started) {
 		$this->started = $started;
 		return $this;
 	}
@@ -245,8 +226,7 @@ class Activity extends CommonEntity
 	 * Retrieve datetime when was activity stopped (formatted by RFC3339).
 	 * @return string
 	 */
-	public function getStopped()
-	{
+	public function getStopped() {
 		return $this->stopped;
 	}
 
@@ -255,9 +235,9 @@ class Activity extends CommonEntity
 	 * @param string $stopped
 	 * @return Activity
 	 */
-	public function setStopped($stopped)
-	{
+	public function setStopped($stopped) {
 		$this->stopped = $stopped;
 		return $this;
 	}
+
 }

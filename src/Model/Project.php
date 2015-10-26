@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -14,8 +15,8 @@ namespace odTimeTracker\JsonRpc\Model;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-class Project extends CommonEntity
-{
+class Project extends CommonEntity {
+
 	/**
 	 * Numeric identifier of the project.
 	 * @var integer $projectId
@@ -48,10 +49,7 @@ class Project extends CommonEntity
 	 * @param string $created (Optional.)
 	 */
 	public function __construct(
-		$projectId = null,
-		$name = null,
-		$description = null,
-		$created = null
+	$projectId = null, $name = null, $description = null, $created = null
 	) {
 		$this->projectId = $projectId;
 		$this->name = $name;
@@ -63,13 +61,12 @@ class Project extends CommonEntity
 	 * Return activity as an array.
 	 * @return array
 	 */
-	public function toArray()
-	{
+	public function toArray() {
 		return array(
-			'ProjectId'   => $this->projectId,
-			'Name'        => $this->name,
+			'ProjectId' => $this->projectId,
+			'Name' => $this->name,
 			'Description' => $this->description,
-			'Created'     => $this->created,
+			'Created' => $this->created,
 		);
 	}
 
@@ -77,8 +74,7 @@ class Project extends CommonEntity
 	 * Retrieve identifier of the project.
 	 * @return integer
 	 */
-	public function getProjectId()
-	{
+	public function getProjectId() {
 		return $this->projectId;
 	}
 
@@ -87,8 +83,7 @@ class Project extends CommonEntity
 	 * @param integer $projectId
 	 * @return Project
 	 */
-	public function setProjectId($projectId)
-	{
+	public function setProjectId($projectId) {
 		$this->projectId = $projectId;
 		return $this;
 	}
@@ -97,8 +92,7 @@ class Project extends CommonEntity
 	 * Retrieve name of the project.
 	 * @return string
 	 */
-	public function getName()
-	{
+	public function getName() {
 		return $this->name;
 	}
 
@@ -107,8 +101,7 @@ class Project extends CommonEntity
 	 * @param string $name
 	 * @return Project
 	 */
-	public function setName($name)
-	{
+	public function setName($name) {
 		$this->name = $name;
 		return $this;
 	}
@@ -117,8 +110,7 @@ class Project extends CommonEntity
 	 * Retrieve description of the project.
 	 * @return string
 	 */
-	public function getDescription()
-	{
+	public function getDescription() {
 		return $this->description;
 	}
 
@@ -127,8 +119,7 @@ class Project extends CommonEntity
 	 * @param string $description
 	 * @return Project
 	 */
-	public function setDescription($description)
-	{
+	public function setDescription($description) {
 		$this->description = $description;
 		return $this;
 	}
@@ -137,8 +128,7 @@ class Project extends CommonEntity
 	 * Retrieve datetime of creation of the project (formatted by RFC3339).
 	 * @return string
 	 */
-	public function getCreated()
-	{
+	public function getCreated() {
 		return $this->created;
 	}
 
@@ -147,9 +137,9 @@ class Project extends CommonEntity
 	 * @param string $created
 	 * @return Project
 	 */
-	public function setCreated($created)
-	{
+	public function setCreated($created) {
 		$this->created = $created;
 		return $this;
 	}
+
 }

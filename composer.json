@@ -6,11 +6,11 @@
 	"homepage": "https://github.com/odtimetracker/http-jsonrpc-php",
 	"license": "MPL-2.0",
 	"authors": [{
-		"name": "Ondřej Doněk",
-		"email": "ondrejd@gmail.com",
-		"homepage": "http://ondrejdonek.blogspot.com/",
-		"role": "Developer"
-	}],
+			"name": "Ondřej Doněk",
+			"email": "ondrejd@gmail.com",
+			"homepage": "http://ondrejdonek.blogspot.com/",
+			"role": "Developer"
+		}],
 	"support": {
 		"issues": "https://github.com/odtimetracker/http-jsonrpc-php/issues",
 		"source": "https://github.com/odtimetracker/http-jsonrpc-php"

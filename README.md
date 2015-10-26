@@ -14,14 +14,14 @@ Method | Params | Description
 `Status` | _none_ | Just alias for method `Info`.
 `Start` | _Activity_ | Start new activity.
 `Stop` | _none_ | Stop currently running activity.
-`InsertActivity` | _Activity_ | Insert activity(-ies).
-`SelectActivity` | _Filter_ | Select activity(-ies).
-`RemoveActivity` | _Filter_ | Remove activity(-ies).
-`UpdateActivity` | _Activity_ | Update activity(-ies).
-`InsertProject` | _Project_ | Insert project(s).
-`SelectProject` | _Filter_ | Select project(s).
-`RemoveProject` | _Filter_ | Remove project(s).
-`UpdateProject` | _Project_ | Update project(s).
+`ActivityInsert` | _Activity_ | Insert activity(-ies).
+`ActivitySelect` | _Filter_ | Select activity(-ies).
+`ActivityRemove` | _Filter_ | Remove activity(-ies).
+`ActivityUpdate` | _Activity_ | Update activity(-ies).
+`ProjectInsert` | _Project_ | Insert project(s).
+`ProjectSelect` | _Filter_ | Select project(s).
+`ProjectRemove` | _Filter_ | Remove project(s).
+`ProjectUpdate` | _Project_ | Update project(s).
 
 __Note__: Below are details about some parameters.
 
@@ -51,7 +51,7 @@ Or:
 
 Where `Name` and either `Project` or `ProjectId` are required and `Description` and `Tags` are optional.
 
-#### Methods `InsertActivity` and `UpdateActivity`
+#### Methods `ActivityInsert` and `ActivityUpdate`
 
 For inserting an activity use:
 

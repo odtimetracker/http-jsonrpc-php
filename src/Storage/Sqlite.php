@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -17,8 +18,8 @@ use odTimeTracker\JsonRpc\Model\Project;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-class Sqlite implements StorageInterface
-{
+class Sqlite implements StorageInterface {
+
 	/**
 	 * @const string Default date time format (RFC3339).
 	 */
@@ -34,8 +35,7 @@ class Sqlite implements StorageInterface
 	 * Constructor.
 	 * @var \PDO $pdo
 	 */
-	public function __construct(\PDO $pdo)
-	{
+	public function __construct(\PDO $pdo) {
 		$this->pdo = $pdo;
 	}
 
@@ -43,8 +43,7 @@ class Sqlite implements StorageInterface
 	 * Get schema version.
 	 * @return integer
 	 */
-	public function getSchemaVersion()
-	{
+	public function getSchemaVersion() {
 		$stmt = $this->pdo->query('PRAGMA user_version;');
 
 		return (int) $stmt->fetchColumn();
@@ -53,8 +52,7 @@ class Sqlite implements StorageInterface
 	/**
 	 * Create storage schema.
 	 */
-	public function createSchema()
-	{
+	public function createSchema() {
 		$sql = <<<EOT
 CREATE TABLE Projects (
 	ProjectId INTEGER PRIMARY KEY,
@@ -80,8 +78,7 @@ EOT;
 	/**
 	 * Clear all data from the storage.
 	 */
-	public function emptyStorage()
-	{
+	public function emptyStorage() {
 		$sql = <<<EOT
 DELETE FROM Activities;
 DELETE FROM Projects;
@@ -94,8 +91,7 @@ EOT;
 	 * Retrieve currently running activity.
 	 * @return Activity|null
 	 */
-	public function getRunningActivity()
-	{
+	public function getRunningActivity() {
 		$sql = <<<EOT
 SELECT *
 FROM `Activities`
@@ -121,10 +117,9 @@ EOT;
 	 * Return `TRUE` if there is a running activity.
 	 * @return boolean
 	 */
-	public function isRunningActivity()
-	{
-		 $runningActivity = $this->getRunningActivity();
-		 return ($runningActivity instanceof Activity);
+	public function isRunningActivity() {
+		$runningActivity = $this->getRunningActivity();
+		return ($runningActivity instanceof Activity);
 	}
 
 	/**
@@ -142,8 +137,7 @@ EOT;
 	 * @param string $tags Activity's tags.
 	 * @return Activity|boolean|null
 	 */
-	public function startActivity($projectId, $name, $description = null, $tags = null)
-	{
+	public function startActivity($projectId, $name, $description = null, $tags = null) {
 		if ($this->isRunningActivity()) {
 			return null;
 		}
@@ -175,8 +169,7 @@ EOL;
 	 * </ul>
 	 * @return Activity|boolean|null
 	 */
-	public function stopActivity()
-	{
+	public function stopActivity() {
 		$activity = $this->getRunningActivity();
 		if (!($activity instanceof Activity)) {
 			return null;
@@ -192,8 +185,7 @@ EOL;
 	 * @param Activity $activity
 	 * @return Activity|false
 	 */
-	public function updateActivity(Activity $activity)
-	{
+	public function updateActivity(Activity $activity) {
 		$sql = <<<EOL
 UPDATE `Activities`
 SET
@@ -228,8 +220,7 @@ EOL;
 	 * @param Project $project
 	 * @return Project|false
 	 */
-	public function insertProject(Project $project)
-	{
+	public function insertProject(Project $project) {
 		if (empty($project->getCreated) || is_null($project->getCreated())) {
 			$project->setCreated(date(self::RFC3339));
 		}
@@ -259,8 +250,7 @@ EOL;
 	 * @param Project $project
 	 * @return Project|false
 	 */
-	public function updateProject(Project $project)
-	{
+	public function updateProject(Project $project) {
 		$sql = <<<EOL
 UPDATE `Projects`
 SET
@@ -287,8 +277,7 @@ EOL;
 	 * @param array $filter
 	 * @return array Array of {@see Activity}.
 	 */
-	public function selectActivity($filter = array())
-	{
+	public function selectActivity($filter = array()) {
 		// TODO Finish this!
 		return array();
 	}
@@ -297,11 +286,26 @@ EOL;
 	 * Select projects.
 	 * @param array $filter
 	 * @return array Array of {@see Project}.
+	 * @todo Use filter if defined!
 	 */
-	public function selectProject($filter = array())
-	{
-		// TODO Finish this!
-		return array();
+	public function selectProject($filter = array()) {
+		$sql = 'SELECT * FROM `Projects`';
+		$stmt = $this->pdo->prepare($sql);
+		$res = $stmt->execute();
+
+		if ($res === false) {
+			return false;
+		}
+
+		$ret = array();
+		$rows = $stmt->fetchAll();
+		foreach ($rows as $row) {
+			$project = new \odTimeTracker\JsonRpc\Model\Project();
+			$project->exchangeArray($row);
+			$ret[] = $project->toArray();
+		}
+
+		return $ret;
 	}
 
 	/**
@@ -310,8 +314,7 @@ EOL;
 	 * @param array $options
 	 * @return integer Count of removed activities.
 	 */
-	public function removeActivity($filter = array(), $options = array())
-	{
+	public function removeActivity($filter = array(), $options = array()) {
 		// TODO Finish this!
 		return 0;
 	}
@@ -322,9 +325,9 @@ EOL;
 	 * @param array $options
 	 * @return integer Count of removed projects.
 	 */
-	public function removeProject($filter = array(), $options = array())
-	{
+	public function removeProject($filter = array(), $options = array()) {
 		// TODO Finish this!
 		return 0;
 	}
+
 }

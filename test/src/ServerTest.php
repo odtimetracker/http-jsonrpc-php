@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -14,8 +15,8 @@ namespace odTimeTracker\JsonRpc;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-class ServerTest extends \PHPUnit_Framework_TestCase
-{
+class ServerTest extends \PHPUnit_Framework_TestCase {
+
 	/**
 	 * @const string Server URL.
 	 */
@@ -44,12 +45,11 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 	 * Simple bad request test.
 	 * @covers odTimeTracker\JsonRpc\Server
 	 */
-	public function testFirstBadRequest()
-	{
-		$context  = stream_context_create(array(
+	public function testFirstBadRequest() {
+		$context = stream_context_create(array(
 			'http' => array(
-				'header'  => "Content-type: application/json\r\n",
-				'method'  => 'POST',
+				'header' => "Content-type: application/json\r\n",
+				'method' => 'POST',
 			),
 		));
 
@@ -57,22 +57,19 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 			$result = file_get_contents(self::SERVER_URI, false, $context);
 		} catch (\Exception $e) {
 			$this->markTestSkipped(sprintf(
-				'Unable to connect test server on address "%s"!',
-				self::SERVER_URI
+							'Unable to connect test server on address "%s"!', self::SERVER_URI
 			));
 		}
 
 		$this->assertEquals(
-			'{"jsonrpc":"2.0","error":{"code":32600,"message":"Request is not valid!"}}',
-			$result
+				'{"jsonrpc":"2.0","error":{"code":32600,"message":"Request is not valid!"}}', $result
 		);
 	}
 
 	/**
 	 * @covers odTimeTracker\JsonRpc\Controller::actionInfo
 	 */
-	public function testInfoRequest()
-	{
+	public function testInfoRequest() {
 		$contextCfg = $this->createStreamContextConfig(1, 'Info');
 		$context = stream_context_create($contextCfg);
 
@@ -80,75 +77,72 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 			$result = file_get_contents(self::SERVER_URI, false, $context);
 		} catch (\Exception $e) {
 			$this->markTestSkipped(sprintf(
-				'Unable to connect test server on address "%s"!',
-				self::SERVER_URI
+							'Unable to connect test server on address "%s"!', self::SERVER_URI
 			));
 		}
 
 		$this->assertEquals(
-			'{"jsonrpc":"2.0","id":1,"result":{"message":"There is no running activity."}}',
-			$result
+				'{"jsonrpc":"2.0","id":1,"result":{"message":"There is no running activity."}}', $result
 		);
 	}
 
 	/**
 	 * @covers odTimeTracker\JsonRpc\Controller::actionStart
 	 * /
-	public function testStartRequest()
-	{
-		$contextCfg = $this->createStreamContextConfig(2, 'Start', array(
-			'Name' => 'http-jsonrpc-php 0.1',
-			'Tags' => 'PHP,Projects',
-			'Project' => 'odTimeTracker',
-			'Description' => 'Starting activity via JsonRpc.'
-		));
-		$context = stream_context_create($contextCfg);
+	  public function testStartRequest()
+	  {
+	  $contextCfg = $this->createStreamContextConfig(2, 'Start', array(
+	  'Name' => 'http-jsonrpc-php 0.1',
+	  'Tags' => 'PHP,Projects',
+	  'Project' => 'odTimeTracker',
+	  'Description' => 'Starting activity via JsonRpc.'
+	  ));
+	  $context = stream_context_create($contextCfg);
 
-		try {
-			$result = file_get_contents(self::SERVER_URI, false, $context);
-		} catch (\Exception $e) {
-			$this->markTestSkipped(sprintf(
-				'Unable to connect test server on address "%s"!',
-				self::SERVER_URI
-			));
-		}
+	  try {
+	  $result = file_get_contents(self::SERVER_URI, false, $context);
+	  } catch (\Exception $e) {
+	  $this->markTestSkipped(sprintf(
+	  'Unable to connect test server on address "%s"!',
+	  self::SERVER_URI
+	  ));
+	  }
 
-		//Possible results:
-		// - Activity was not started - another activity is running.
-		// - Activity was successfully started!
+	  //Possible results:
+	  // - Activity was not started - another activity is running.
+	  // - Activity was successfully started!
 
-		//Possible errors:
-		// - Activity was not started - wrong parameters given!
-		// - Starting activity failed!
+	  //Possible errors:
+	  // - Activity was not started - wrong parameters given!
+	  // - Starting activity failed!
 
-		// ...
-	}*/
-
+	  // ...
+	  } */
 	/**
 	 * @covers odTimeTracker\JsonRpc\Controller::actionStart
 	 * /
-	public function testStopRequest()
-	{
-		//{ "jsonrpc":"2.0", "method":"Start""id":1 }
-		$contextCfg = $this->createStreamContextConfig(3, 'Stop');
-		$context = stream_context_create($contextCfg);
+	  public function testStopRequest()
+	  {
+	  //{ "jsonrpc":"2.0", "method":"Start""id":1 }
+	  $contextCfg = $this->createStreamContextConfig(3, 'Stop');
+	  $context = stream_context_create($contextCfg);
 
-		try {
-			$result = file_get_contents(self::SERVER_URI, false, $context);
-		} catch (\Exception $e) {
-			$this->markTestSkipped(sprintf(
-				'Unable to connect test server on address "%s"!',
-				self::SERVER_URI
-			));
-		}
+	  try {
+	  $result = file_get_contents(self::SERVER_URI, false, $context);
+	  } catch (\Exception $e) {
+	  $this->markTestSkipped(sprintf(
+	  'Unable to connect test server on address "%s"!',
+	  self::SERVER_URI
+	  ));
+	  }
 
-		//Possible results:
-		// - Couldn't stop activity - no activity is running.
-		// - Activity was successfully stopped!
+	  //Possible results:
+	  // - Couldn't stop activity - no activity is running.
+	  // - Activity was successfully stopped!
 
-		//Possible errors:
-		// - Stopping activity failed!
+	  //Possible errors:
+	  // - Stopping activity failed!
 
-		// ...
-	}*/
+	  // ...
+	  } */
 }

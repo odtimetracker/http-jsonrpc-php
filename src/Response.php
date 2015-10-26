@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -17,8 +18,8 @@ use odTimeTracker\JsonRpc\Response\Error as ResponseError;
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  * @link http://www.jsonrpc.org/specification#response_object
  */
-class Response
-{
+class Response {
+
 	/**
 	 * String specifying the version of the JSON-RPC protocol. **MUST** be exactly `2.0`.
 	 * @var string $jsonrpc
@@ -53,8 +54,7 @@ class Response
 	/**
 	 * Constructor.
 	 */
-	public function __construct($result = null, $error = null, $identifier = null)
-	{
+	public function __construct($result = null, $error = null, $identifier = null) {
 		$this->result = $result;
 		$this->error = $error;
 		$this->identifier = $identifier;
@@ -64,8 +64,7 @@ class Response
 	 * Retrieve result.
 	 * @return mixed|null
 	 */
-	public function getResult()
-	{
+	public function getResult() {
 		return $this->error;
 	}
 
@@ -74,8 +73,7 @@ class Response
 	 * @param mixed|null $result
 	 * @return Response
 	 */
-	public function setResult($result)
-	{
+	public function setResult($result) {
 		$this->result = $result;
 		return $this;
 	}
@@ -84,8 +82,7 @@ class Response
 	 * Retrieve an error (if occured).
 	 * @return ResponseError|null
 	 */
-	public function getError()
-	{
+	public function getError() {
 		return $this->error;
 	}
 
@@ -94,8 +91,7 @@ class Response
 	 * @param ResponseError|null $error
 	 * @return Response
 	 */
-	public function setError($error)
-	{
+	public function setError($error) {
 		$this->error = $error;
 		return $this;
 	}
@@ -104,8 +100,7 @@ class Response
 	 * Retrieve an identifier established by the client.
 	 * @return integer|null
 	 */
-	public function getIdentifier()
-	{
+	public function getIdentifier() {
 		return $this->identifier;
 	}
 
@@ -114,8 +109,7 @@ class Response
 	 * @param integer|null $id
 	 * @return Response
 	 */
-	public function setIdentifier($identifier)
-	{
+	public function setIdentifier($identifier) {
 		$this->identifier = $identifier;
 		return $this;
 	}
@@ -124,8 +118,7 @@ class Response
 	 * Return `TRUE` if error occured during invocation.
 	 * @return boolean
 	 */
-	public function isError()
-	{
+	public function isError() {
 		return ($this->error instanceof ResponseError);
 	}
 
@@ -133,8 +126,7 @@ class Response
 	 * Return response as JSON string.
 	 * @return string
 	 */
-	public function __toString()
-	{
+	public function __toString() {
 		$json = array('jsonrpc' => $this->jsonrpc);
 
 		if (!is_null($this->identifier)) {
@@ -159,4 +151,5 @@ class Response
 
 		return json_encode($json);
 	}
+
 }

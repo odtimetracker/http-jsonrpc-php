@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -24,8 +25,8 @@ use odTimeTracker\JsonRpc\Storage\Sqlite as SqliteStorage;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-class Server
-{
+class Server {
+
 	/**
 	 * Array with server configuration.
 	 * @var array $config
@@ -36,16 +37,14 @@ class Server
 	 * Constructor.
 	 * @param array $config
 	 */
-	public function __construct($config = array())
-	{
+	public function __construct($config = array()) {
 		$this->config = $config;
 	}
 
 	/**
 	 * Handle request.
 	 */
-	public function handle()
-	{
+	public function handle() {
 		// Get request
 		$request = new Request();
 
@@ -63,4 +62,5 @@ class Server
 		header('content-type: application/json');
 		echo $controller->getResponse();
 	}
+
 }

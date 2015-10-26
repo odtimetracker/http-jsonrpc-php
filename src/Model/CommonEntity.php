@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -14,15 +15,14 @@ namespace odTimeTracker\JsonRpc\Model;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-abstract class CommonEntity
-{
+abstract class CommonEntity {
+
 	/**
 	 * Exchange values of the object with given array.
 	 * @param array $data
 	 * @return Activity
 	 */
-	public function exchangeArray($data = array())
-	{
+	public function exchangeArray($data = array()) {
 		foreach ($data as $key => $val) {
 			$lkey = lcfirst($key);
 

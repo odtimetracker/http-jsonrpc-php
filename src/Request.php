@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -15,9 +16,10 @@ namespace odTimeTracker\JsonRpc;
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  * @link http://www.jsonrpc.org/specification#request_object
  */
-class Request
-{
+class Request {
+
 	const DEFAULT_VERSION = '2.0';
+
 	/**
 	 * String specifying the version of the JSON-RPC protocol. **MUST** be exactly `2.0`.
 	 * @var string $jsonrpc
@@ -57,8 +59,7 @@ class Request
 	/**
 	 * Constructor.
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		$request = json_decode(file_get_contents('php://input'), true);
 
 		if (!is_array($request)) {
@@ -77,8 +78,7 @@ class Request
 	 * Validate request.
 	 * @return boolean
 	 */
-	protected function validate()
-	{
+	protected function validate() {
 		if ($this->jsonrpc != self::DEFAULT_VERSION) {
 			$this->error = 'Request is not valid (bad JsonRpc version)!';
 			return false;
@@ -96,8 +96,7 @@ class Request
 	 * Return list of available method names.
 	 * @return array
 	 */
-	public function getAvailableMethods()
-	{
+	public function getAvailableMethods() {
 		return [
 			'Info',
 			'Start',
@@ -118,8 +117,7 @@ class Request
 	 * Return `TRUE` if request is valid.
 	 * @return boolean
 	 */
-	public function isValid()
-	{
+	public function isValid() {
 		return $this->isValid;
 	}
 
@@ -127,8 +125,7 @@ class Request
 	 * Return error message when request is not valid.
 	 * @return string
 	 */
-	public function getError()
-	{
+	public function getError() {
 		return $this->error;
 	}
 
@@ -136,8 +133,7 @@ class Request
 	 * Retrieve used version of the JSON-RPC protocol.
 	 * @return string
 	 */
-	public function getJsonrpc()
-	{
+	public function getJsonrpc() {
 		return $this->jsonrpc;
 	}
 
@@ -145,8 +141,7 @@ class Request
 	 * Retrieve the name of the method to be invoked.
 	 * @return string
 	 */
-	public function getMethod()
-	{
+	public function getMethod() {
 		return $this->method;
 	}
 
@@ -154,8 +149,7 @@ class Request
 	 * Retrieve the parameter values to be used during the invocation of the method.
 	 * @return array
 	 */
-	public function getParams()
-	{
+	public function getParams() {
 		return $this->params;
 	}
 
@@ -163,8 +157,8 @@ class Request
 	 * Retrieve request identifier.
 	 * @return integer|null
 	 */
-	public function getIdentifier()
-	{
+	public function getIdentifier() {
 		return $this->identifier;
 	}
+
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -17,8 +18,8 @@ use odTimeTracker\JsonRpc\Model\Project;
  *
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  */
-interface StorageInterface
-{
+interface StorageInterface {
+
 	/**
 	 * Get schema version.
 	 * @return integer

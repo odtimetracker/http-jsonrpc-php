@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -6,8 +7,6 @@
  * @copyright Copyright (c) 2015 Ondřej Doněk.
  * @license https://www.mozilla.org/MPL/2.0/ Mozilla Public License 2.0
  */
-
-
 // Include all required sources
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
@@ -23,11 +22,11 @@ defined('CONFIG_SEC_NAME') || define('CONFIG_SEC_NAME', 'odtimetracker-php-jsonr
  */
 $configdir = dirname(__DIR__) . '/config';
 if (!file_exists($configdir)) {
-  if (!mkdir('path/to/directory', 0777, true)) {
-    die('Exiting - can not create configuration directory!' . PHP_EOL);
-  }
+	if (!mkdir('path/to/directory', 0777, true)) {
+		die('Exiting - can not create configuration directory!' . PHP_EOL);
+	}
 } else if (!is_dir($configdir)) {
-  die('Exiting - configuration directory is not a directory!' . PHP_EOL);
+	die('Exiting - configuration directory is not a directory!' . PHP_EOL);
 }
 
 /**
@@ -35,23 +34,22 @@ if (!file_exists($configdir)) {
  */
 $configfile = $configdir . '/config.ini';
 if (!file_exists($configfile)) {
-  // Create `.odTimeTracker/conf.ini` file with default database connection
-  $res = file_put_contents(
-      $configfile,
-      '; odTimeTracker Configuration File' . PHP_EOL .
-      PHP_EOL .
-      '[' . CONFIG_SEC_NAME . ']' . PHP_EOL .
-      'db.dsn="sqlite:' . $configdir . '/db.sqlite"' . PHP_EOL .
-      'db.username=""' . PHP_EOL .
-      'db.password=""' . PHP_EOL .
-      PHP_EOL
-  );
+	// Create `.odTimeTracker/conf.ini` file with default database connection
+	$res = file_put_contents(
+			$configfile, '; odTimeTracker Configuration File' . PHP_EOL .
+			PHP_EOL .
+			'[' . CONFIG_SEC_NAME . ']' . PHP_EOL .
+			'db.dsn="sqlite:' . $configdir . '/db.sqlite"' . PHP_EOL .
+			'db.username=""' . PHP_EOL .
+			'db.password=""' . PHP_EOL .
+			PHP_EOL
+	);
 
-  if ($res === false) {
-    die('Exiting - creating of configuration file failed!' . PHP_EOL);
-  }
+	if ($res === false) {
+		die('Exiting - creating of configuration file failed!' . PHP_EOL);
+	}
 } else if (!is_file($configfile) || !is_readable($configfile)) {
-  die('Exiting - configuration file is not readable!' . PHP_EOL);
+	die('Exiting - configuration file is not readable!' . PHP_EOL);
 }
 
 /**
@@ -59,7 +57,7 @@ if (!file_exists($configfile)) {
  */
 $configarr = parse_ini_file($configfile, true);
 if (!array_key_exists(CONFIG_SEC_NAME, $configarr)) {
-  die('Exiting - configuration file is not valid!' . PHP_EOL);
+	die('Exiting - configuration file is not valid!' . PHP_EOL);
 }
 
 /**

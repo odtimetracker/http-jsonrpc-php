@@ -42,11 +42,11 @@
 		     logIncompleteSkipped="false"/>
 	</logging>
 
-	<logging>
-		<log highlowerbound="80" lowupperbound="50" highlight="true"
-		     yui="true" charset="UTF-8" target="./doc/coverage"
-		     type="coverage-html"/>
-	</logging>
--->
+		<logging>
+			<log highlowerbound="80" lowupperbound="50" highlight="true"
+				 yui="true" charset="UTF-8" target="./doc/coverage"
+				 type="coverage-html"/>
+		</logging>
+	-->
 </phpunit>
 

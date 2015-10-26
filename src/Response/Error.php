@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Simple JSON-RPC server for odTimeTracker front-end applications.
  *
@@ -15,8 +16,8 @@ namespace odTimeTracker\JsonRpc\Response;
  * @author Ondřej Doněk, <ondrejd@gmail.com>
  * @link http://www.jsonrpc.org/specification#error_object
  */
-class Error
-{
+class Error {
+
 	/**
 	 * Invalid JSON was received by the server.
 	 * @type integer
@@ -78,8 +79,7 @@ class Error
 	 * @param string $message (Optional.)
 	 * @param mixed $data (Optional.)
 	 */
-	public function __construct($code = null, $message = null, $data = null)
-	{
+	public function __construct($code = null, $message = null, $data = null) {
 		$this->code = $code;
 		$this->message = $message;
 		$this->data = $data;
@@ -89,8 +89,7 @@ class Error
 	 * Retrieve error's code.
 	 * @return integer
 	 */
-	public function getCode()
-	{
+	public function getCode() {
 		return $this->code;
 	}
 
@@ -99,8 +98,7 @@ class Error
 	 * @param integer $code
 	 * @return Error
 	 */
-	public function setCode($code)
-	{
+	public function setCode($code) {
 		$this->code = $code;
 		return $this;
 	}
@@ -109,8 +107,7 @@ class Error
 	 * Retrieve error's message.
 	 * @return string
 	 */
-	public function getMessage()
-	{
+	public function getMessage() {
 		return $this->message;
 	}
 
@@ -119,8 +116,7 @@ class Error
 	 * @param string $message
 	 * @return Error
 	 */
-	public function setMessage($message)
-	{
+	public function setMessage($message) {
 		$this->message = $message;
 		return $this;
 	}
@@ -129,8 +125,7 @@ class Error
 	 * Retrieve error's additional data.
 	 * @return mixed
 	 */
-	public function getData()
-	{
+	public function getData() {
 		return $this->data;
 	}
 
@@ -139,9 +134,9 @@ class Error
 	 * @param mixed $data
 	 * @return Error
 	 */
-	public function setData($data)
-	{
+	public function setData($data) {
 		$this->data = $data;
 		return $this;
 	}
+
 }
